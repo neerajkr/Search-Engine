@@ -1,0 +1,670 @@
+% https://raw.githubusercontent.com/jpeisenbarth/SRS-Tex/master/srs.tex
+
+%Copyright 2014 Jean-Philippe Eisenbarth
+%This program is free software: you can 
+%redistribute it and/or modify it under the terms of the GNU General Public 
+%License as published by the Free Software Foundation, either version 3 of the 
+%License, or (at your option) any later version.
+%This program is distributed in the hope that it will be useful,but WITHOUT ANY 
+%WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A 
+%PARTICULAR PURPOSE. See the GNU General Public License for more details.
+%You should have received a copy of the GNU General Public License along with 
+%this program.  If not, see <http://www.gnu.org/licenses/>.
+
+%Based on the code of Yiannis Lazarides
+%http://tex.stackexchange.com/questions/42602/software-requirements-specification-with-latex
+%http://tex.stackexchange.com/users/963/yiannis-lazarides
+%Also based on the template of Karl E. Wiegers
+%http://www.se.rit.edu/~emad/teaching/slides/srs_template_sep14.pdf
+%http://karlwiegers.com
+\documentclass{scrreprt}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{underscore}
+\usepackage[bookmarks=true]{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\hypersetup{
+    bookmarks=false,    % show bookmarks bar?
+    pdftitle={Software Requirement Specification},    % title
+    pdfauthor={Jean-Philippe Eisenbarth},                     % author
+    pdfsubject={TeX and LaTeX},                        % subject of the document
+    pdfkeywords={TeX, LaTeX, graphics, images}, % list of keywords
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,       % color of internal links
+    citecolor=black,       % color of links to bibliography
+    filecolor=black,        % color of file links
+    urlcolor=purple,        % color of external links
+    linktoc=page            % only page is linked
+}%
+\def\myversion{1.0 }
+\date{}
+%\title{%
+
+%}
+\usepackage{hyperref}
+\begin{document}
+
+\begin{flushright}
+    \rule{16cm}{5pt}\vskip1cm
+    \begin{bfseries}
+        \Huge{SOFTWARE REQUIREMENTS\\ SPECIFICATION}\\
+        \vspace{1.5cm}
+        for\\
+        \vspace{1.5cm}
+        DEVELOPMENT OF SEARCH ENGINE\\
+        \vspace{1.5cm}
+        \LARGE{Version \myversion}\\
+        \vspace{1.5cm}
+        Prepared by Neeraj Kumar, Khushboo Kumari, Shweta Kumari\\
+        \vspace{1.5cm}
+        Tutorialspoint\\
+        \vspace{1.5cm}
+        \today\\
+    \end{bfseries}
+\end{flushright}
+
+\tableofcontents
+
+
+\chapter*{Revision History}
+
+\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+	    Name & Date & Reason For Changes & Version\\
+        \hline
+	    Initial Version & Dec 16,2016 & Initial & 1.0\\
+        \hline
+    \end{tabular}
+\end{center}
+
+\chapter{Introduction}
+
+\section{About}
+This SRS is about a light version of Search Engine which works for a single as well as group of sites. A web search engine is a software system that is designed to search for information on the World Wide Web. The search results are generally presented in a line of results often referred to as search engine results pages (SERPs). The information may be a mix of web pages, images, and other types of files.
+
+\section{Purpose}
+
+\begin{itemize}
+  \item To help you find the web page with the info you need. It has been designed to help people find information stored on a single as well as group so sites.
+  \item This document describes the requirements specification (SRS) for the software infrastructure (or product) that enables the users to search the keywords and get a list of relevant links. This will be like the basic version of Google Search Engine.
+ \item A search engine, that search web links for specified keywords and returns a list of web links and some code snippets where keywords are found.
+
+\end{itemize}
+
+\section{Document Conventions}
+This document follows MLA Format. Bold-faced text has been used to emphasize section and sub-section headings. Highlighting is to point out words in the glossary and italicized text is used to label and recognize diagrams.
+
+\section{Intended Audience and Reading Suggestions}
+\begin{itemize}
+  \item This document is to be read by the development team, the project managers, marketing staff, testers and documentation writers.
+  \item One should have basic idea of how search engine works. There are many materials available on the Internet. You can have a look on them before proceeding above. In particular have a look on different stages of search engine development like crawling, indexing, presentation.
+
+\end{itemize}
+
+\section{Project Scope/Functionality}
+\begin{itemize}
+  \item A spider (also called a "crawler" or a "bot") that goes to every page or representative pages on every Website that wants to be search-able and reads it.
+ \item The crawler collects all the links and stores in a database.
+ \item A program that creates a huge index (sometimes called a "catalog") from the pages that have been read.
+ \item A program that receives the search request, compares it to the entries in the index, and returns results to the user.
+
+\end{itemize}
+
+\section{References}
+
+\begin{itemize}
+
+  \item \href{http://www.tutorialspoint.com/http/http_requests}{http://www.tutorialspoint.com/http/http_requests} 
+  
+  \item \href{http://computer.howstuffworks.com/internet/basics/search-engine1.htm}{http://computer.howstuffworks.com/internet/basics/search-engine1.htm}
+  \item \href{http://www.brickmarketing.com/define-search-engine-index.htm}{http://www.brickmarketing.com/define-search-engine-index.htm}
+  \item \href{http://stackoverflow.com/questions/1501690/parsing-out-data-using-beautifulsoup-in-python}{http://stackoverflow.com/questions/1501690/parsing-out-data-using-beautifulsoup-in-python}
+  \item \href{http://stackoverflow.com/questions/11709079/parsing-html-using-python}{http://stackoverflow.com/questions/11709079/parsing-html-using-python}
+  
+  
+  
+  
+\end{itemize}
+
+
+
+\chapter{Overall Description}
+
+\section{Product Components}
+
+\begin{itemize}
+    \item \textbf{Web crawling, Indexing and Ranking:-} This is the part of the search engine which combs through the pages on the Internet and gathers the information for the search engine. IT then extracts the keywords from the text and uses them during query by users
+    \item \textbf{Database:-} Whenever a users enters a query ,the search engine’s database is what actually searched. All of the information that a web crawler retrieves is stored in a database. Every time a search engine is used, it is this database that is searched not the live Internet.
+    \item \textbf{Search Interface:} This component is an interface between user and the database. It helps the user to search through the database.
+  
+\end{itemize}
+ 
+ 
+
+
+
+
+\section{Operating Environment}
+\begin{itemize}
+
+\item \textbf{Operating System:-} Ubuntu 16.04
+\item \textbf{Programming environment:-} Python 2.7
+\item \textbf{Data Base:-} Sqlite3
+\item \textbf{Python Packages Used:-} 
+List of packages for python 2.7:
+\begin{itemize}
+ \item\textbf{whois}:- for finding domain of a siteSearch Interfaces.
+\item\textbf{urlparse}:-for parsing url and finding different components.
+ \item\textbf{datetime}:-for finding age of a web page.
+\item\textbf{urllib2}:-for working on url.
+\item\textbf{sqlite3}:-for storing and retrieving data from database.
+\item\textbf{time}:- for finding load time of a web page.
+\item\textbf {re}:- for providing  regular expression matching operations
+\item\textbf{robotparse}r:-for reading robot.txt file of each site.
+\item\textbf{bs4} :-for keyword extraction and html file downloading.
+ \item\textbf{os}:- for providing  a portable way of using operating system      dependent functionality.
+\item\textbf{nltk}:-for  Natural Language Processing and extracting keywords
+\item\textbf{collections};- For counting and sorting efficiently
+ 
+\end{itemize}
+
+\end{itemize}
+
+
+\chapter{System Features}
+
+\section{Features:}
+\begin{itemize}
+    \item Scalable i.e. It can be extended up to large scale.
+    \item It can be used to search from multiple websites at a single time
+    \item Fast searching and indexing, simple
+    \item Follows robot exclusion protocol
+    \item Portable( current version will support linux only)
+    \item Page rank can be customized using configuration table
+    \item Implemented in python so it is memory efficient, dynamic and general-purpose programming language
+    \item During Keyword extraction, list of stop words like “is” ,”am”, “are” etc has been used which discard these words from keyword list
+    \item Keywords like “son”, “sons” has been taken same as these have similar importance during searching
+    
+    
+    \item Database has been implemented in sqlite which has lot of advantages
+    \begin{itemize}
+      \item Zero-Configuration
+      \begin{itemize}
+        \item No "setup" procedure
+        \item Easily portable
+        \item No server process that needs to be started, stopped, or configured.
+        \item no need for an administrator to create a new database instance or assign access permissions to users
+        \item No configuration files. 
+        \item Nothing needs to be done to tell the system that SQ-Lite is running. 
+        \item No actions are required to recover after a system crash or power failure. 
+        \item There is nothing to troubleshoot.
+
+      \end{itemize}
+     \item Server-less
+     \item Single Database File
+    \item Stable Cross-Platform Database File
+    \item Compact
+
+
+    \end{itemize}
+    
+\end{itemize}
+    
+
+
+\chapter{Database Schema}
+
+\textbf{Database name:} SearchEngineDB.db
+
+\section{Description of  Attributes of the Database:-}
+
+ \begin{itemize}
+\item \textbf {SITE_ID}:- It represents unique site.
+\item \textbf {URL_ID} :-  It represents unique URL.
+\item \textbf {SITE_URL} :- It represents url of site.
+\item \textbf {SITE_AGE}:- It represents how much old is site
+\item \textbf {LINKS_QUALITY}:-  It represents how much percent  link in a particular site is good
+\item \textbf {TEXT_QUALITY}:- It represents how much a particular site is well written
+\item \textbf {BOUNCE_RATE}  :- It represents  how much time user is spending on that site.
+\item \textbf {INBOUND_LIMIT} :- It represents how much a particular site is referred by the other sites.         
+\item \textbf {SITE_POPULARITY}:- It represents of much popular is site
+\item \textbf {NO_OF_VIEWERS}:- It represents number of viewers of site. 
+\item \textbf {LAST_UPDATE}	:- It represents when a site is last updated.        
+\item \textbf {SECURITY_WEIGHT} :- It is used to represent whether a URL is secured or not.      
+\item \textbf {LOAD_TIME}:-   It represents how much time a URL is taking to load
+\item \textbf {FREQUENCY_WEIGHT} :- It represent whether a word is present  in body or not	 	,
+\item \textbf {TITLE_WEIGHT}  :-  It represent whether a word is present in title or not	 	
+\item \textbf {METADESCRIPTION_WEIGHT} :- It represent whether a word is present in meta word or not
+\item \textbf {URLNAME_WEIGHT} :- It represents whether a word is present is in URL name or not
+\item \textbf {HEADING_WEIGHT}:- It represents whether a word is present in heading or not
+\end{itemize}
+
+\section{SITE_INFO}
+
+
+CREATE TABLE \textbf{SITE_INFO}(\\ \\
+    SITE_ID	 \hspace{15pt}        	        integer , \\
+	SITE_URL 	   \hspace{15pt}     text,\\
+	SITE_AGE	    \hspace{15pt}     real,\\
+	TEXT_QUALITY	\hspace{15pt}         real,\\
+	LINKS_QUALITY	\hspace{15pt}         real,\\
+	BOUNCE_RATE     \hspace{15pt}        real,\\	   
+  	INBOUND_LIMIT   \hspace{15pt}         integer,\\
+  	SITE_POPULARITY   \hspace{15pt}      integer,\\
+ 	NO_OF_VIEWERS     \hspace{15pt}    integer,\\
+	SITE_IP_LOCATION  \hspace{15pt}     text,\\
+);
+
+
+\section{ URL_INFO}
+
+CREATE TABLE  \textbf{URL_INFO}(\\ \\	  
+    SITE_ID   	\hspace{15pt}        integer , \\
+	URL_ID    \hspace{15pt}	        text,\\
+	URL_LINK \hspace{15pt}	        text,\\
+	LAST_MODIFIED	  \hspace{15pt}      text,\\
+	SECURITY_STATUS  \hspace{15pt}     real ,\\
+	LOAD_TIME        \hspace{15pt}        real ,\\	  
+	FINAL_URL_WEIGHT \hspace{15pt}        real ,\\	 
+  	);
+
+
+
+
+\section{KEYWORD_INFO}
+
+CREATE TABLE  \textbf{KEYWORD_INFO}( \\ \\
+    KEYWORDS	       \hspace{15pt} 		text,\\
+   
+	URL_ID   	  \hspace{15pt}      		integer,\\
+	SITE_ID   	     \hspace{15pt}   		integer \\
+	
+	FREQ_IN_BODY  \hspace{15pt}	 	integer,\\
+	FREQ_IN_TITLE    \hspace{15pt}        	 	integer,\\
+	FREQ_IN_META  \hspace{15pt}        integer,\\
+    URLNAME_WEIGHT	      \hspace{15pt}      integer,\\
+    HEADING_WEIGHT \hspace{15pt}	integer\\
+    FINAL_FREQ_WEIGHT \hspace{15pt}	integer\\
+  	);
+
+
+
+\section{WEIGHT_CONFIG}
+    CREATE TABLE  \textbf{WEIGHT_INFO}(\\ \\
+    WEIGHT_NAME  	 \hspace{15pt}  	text\\
+    WEIGHT_VALUE 	   \hspace{15pt}        		real\\
+);\\
+
+\textbf{Note:}-The above table weight_info is a configuration table  in which the weight_name and their respective weight_value is already  predefined.
+
+\section{WEIGHT_CONFIG TABLE CONTENTS:-}
+
+    \begin{center}
+\begin{tabular}{ |c|c|c| } 
+ \hline 
+ 
+Factor_Name & Factor_Value & Max_Weight \\
+ \hline
+ Domain_age_factor & 1 & 3 \\
+ \hline
+ Keyword_body_factor & 1 & 4 \\ 
+  \hline
+ Meta_desc_factor & 0.5 & -- \\
+ \hline
+ Mta_keyword_factor & 0.5 & -- \\ 
+ \hline
+  
+ Title & 1 & -- \\
+ \hline
+ H1 & 0.5 & -- \\ 
+  \hline
+ H2 & 0.25 & -- \\
+ \hline
+ http/https(security) & 1 & -- \\ 
+  \hline
+ Url-name & 1 & --\\
+ \hline
+ Url-site & 2 & -- \\ 
+  \hline
+ Site_quality_factor & -- & -- \\
+ \hline
+ link_quality_factor & -- & -- \\ 
+  \hline
+ Img_tag_factor & 0.01 & 1 \\
+ \hline
+ Anchor_tag_factor& 0.01 & 1 \\ 
+  \hline
+Site_popularity &1 & -- \\
+ \hline
+ No._of_viewers &1 & -- \\ 
+  \hline
+ Inbound_limit & 1 & -- \\
+ \hline
+  Bounce_rate & 1 & -- \\
+ \hline
+ 
+ 
+\end{tabular}
+\end{center}
+
+\subsection{Explanation for different weight factors:-}
+\begin{itemize}
+  \item  \textbf{Domain_age_factor:-} After finding  the age of domain in years, the age is multiplied by the \textbf{factor_value} . If the result is more than or equal to  \textbf{maximum_weight} ,the  result is replaced by \textbf{ maximum_weight} otherwise it remains same.Explanations for the different weight factors:-
+
+
+  \item \textbf{Keyword_body_factor:-} The keywords in a html page is  divided by the total no of keywords  in a given html  page and multiplied by 100 to find the percentage .Then again the result is multiplied by Keyword_body_factor. If the resultant is greater or equal to \textbf{maximum_weight} then it is replaced by \textbf{maximum_weight} else it is kept same.
+  
+   \item \textbf{Meta_desc_factor:-} If the searched keyword is found in meta description of the page then  a \textbf{factor value} 0.5 is used for ranking calculation else 0 is used.
+
+\item \textbf{Meta_key_factor:-} If the searched keyword is found in meta keywords  of the page then a\textbf{factor value} 0.5 is used for ranking calculation else 0 is used.
+
+\item \textbf{Img_tag factor:-}   This factor will be used as penalty  if the \textbf{alt} attribute is not found in the  img tag. For this , the percentage of img tag in which \textbf{alt}attribute is not found is calculated. This percentage is multiplied with the \textbf{factor_value} and the result is used for ranking purpose if it is less than maximum_weight else\textbf{Maximum_weight} is used.
+
+
+\item \textbf{Anchor_tag factor:-}  This factor will be used as penalty  if the\textbf {title} attribute is not found in the  img tag. For this , first of all the percentage of anchor  tag in which  \textbf {title}   attribute is not found is calculated. Then this percentage is multiplied with the \textbf{factor_value} and then the result is used for ranking purpose  if fit is less than\textbf{ maximum_weight} else \textbf{Maximum_weight} is used .
+
+\item Similar strategy as that of Meta_key_factor  is used for  Http/Https(Security status),  Url_name,  Url_site, Site_popularity, no_of_viewers, bounce_rate, Inbound_limit , Link_quality_factor and Site_quality_factor.
+
+
+
+
+
+
+\end{itemize}
+
+
+\subsection{How to update WEIGHT_CONFIG TABLE CONTENTS}
+    \begin{itemize}
+      \item Change the corresponding value in \textit{weight_config.py} file and run it
+      \item Also update the tables \textbf{KEYWORD_INFO} and \textbf{KEYWORD_RANK} table because these tables have used the values from WEIGHT_CONFIG table. So, run again the files \textit{keyword_info.py} and \textit{keyword_rank.py}.
+    
+    
+    \end{itemize}
+
+
+\section{KEYWORD_RANK}
+
+CREATE TABLE  \hspace{15pt}  \textbf{KEYWORD_RANK}(\\ \\
+    KEYWORD		 \hspace{15pt} 	text\\
+    FILE_LOCATION \hspace{15pt} 			text\\
+    URL 		 \hspace{15pt} 		text\\
+    TOTAL_WEIGHT \hspace{15pt} 			real\\
+);
+
+\section{LOAD_TIME}
+    CREATE TABLE  \textbf{WEIGHT_INFO}(\\ \\
+    LOAD_TIME  	 \hspace{15pt}  	text\\
+    LOAD_TIME_WEIGHT 	   \hspace{15pt}        		real\\
+);\\
+
+
+
+
+
+
+\section{Entries in the LOAD_TIME Table}
+
+\begin{itemize}
+
+    
+  \item Load_time1 \hspace{15pt} load_time $>$ 5s \hspace{15pt} 0.0
+  \item Load_time2 \hspace{15pt} load_time $>$ 4s \hspace{15pt} 0.1
+  \item Load_time3 \hspace{15pt} load_time $>$ 3s \hspace{15pt} 0.2
+  \item Load_time4 \hspace{15pt} load_time $>$ 2s \hspace{15pt} 0.3
+  \item Load_time5 \hspace{15pt} load_time $>$ 1s \hspace{15pt} 0.4
+  \item Load_time6 \hspace{15pt} load_time $>$ 0s \hspace{15pt} 0.5
+  
+  
+  
+\end{itemize}
+
+
+    
+
+
+
+\chapter{Architecture/System Flow Diagram}
+
+\section{Overall-Architecture}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=14cm,height=6cm]{search}
+\caption{Search Engine Architecture}
+\end{center}
+\end{figure}  
+
+
+\section{Crawling}
+\begin{itemize}
+\item\textbf{Crawling}:  Crawlers look at web-pages and follow links on those pages. They go from link to link and bring data about those web-pages. It takes the input as list of site links and crawl all the urls in DB table URL_INFO which contains the information about all the links and also downloads the html data for further requirements
+    \begin{itemize}
+      \item \textbf{Input:}List of Site urls
+       \item\textbf{Output}: URL_INFO table corresponding to all the urls in that site and html files
+       \item \textbf{Processing}: It starts from site url and extract all links on that site url page and then follow those links to do the same. It crawls till all the urls from that page get crawled
+        \item \textbf{Files used} : url_info.py, site_info.py
+        \item \textbf{Python Libraries used} : urllib2, urlparse, re, time, robotparser, sqlite3, bs4, whois, datetime
+
+        
+        \item \textbf{Database Tables used} : URL_INFO,SITE_INFO
+        
+     \end{itemize}
+\end{itemize}
+
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=14cm,height=6cm]{crawling}
+\caption{Crawling Architecture}
+\end{center}
+\end{figure}  
+
+\begin{itemize}
+
+\item\textbf {Updating the tables} : Site urls, url data etc are often modified and new links are also added. So, it is important to update our tables and html data. For this, a new python file has been created which compares the “last_updated” column in URL_INFO table with current last_updated and modify the relevant tables.
+
+    \begin{itemize}
+     \item \textbf{Input}: “last_updated”, “url_link” column in URL_INFO table
+     \item \textbf{Output}: updated table
+     \item \textbf{Processing}: It compares on the basis of last_modified and update the tables
+     \item \textbf{Files used} : url_info.py, site_info.py, keyword_info.py
+        \item \textbf{Python Libraries used} : urllib2, urlparse, re, time, robotparser, sqlite3, bs4, whois, datetime
+
+        \item \textbf{Database Tables used} : URL_INFO, SITE_INFO, KEYWORD_INFO
+        
+   
+     \end{itemize}
+\end{itemize}
+
+
+\section{Indexing}
+\begin{itemize}
+
+\item\textbf {Indexing}: It includes various methods for indexing the contents. Html text, title, meta description/keywords has been used for extracting the keywords and make the table KEYWORD_INFO. In this table, occurrence of keywords has been also taken. In this step, html tags were remo
+    \begin{itemize}
+     \item \textbf{Input}: html data downloaded during crawling
+    \item \textbf{Output}: KEYWORD_INFO table
+    \item \textbf{Processing}: html data are processed to get text and then tokenized to get keywords
+     \item \textbf{Files used} : keyword_info.py
+        \item \textbf{Python Libraries used} : os, urllib, bs4, nltk, collections, sqlite3
+   
+  
+        \item \textbf{Database Tables used} : KEYWORD_INFO
+        
+
+     \end{itemize}
+\end{itemize}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=14cm,height=6cm]{indexing}
+\caption{Indexing Architecture}
+\end{center}
+\end{figure} 
+
+\section{Ranking}
+\begin{itemize}
+
+\item\textbf {Ranking}: Relevant urls containing query keywords are ranked using different factors. In this step, we take find the urls in which query keywords are present and then based on the weight of url, site and occurrence weight, urls are ranked. Site having good reputation, more number of viewers, good links and other factors are given more weight-age compared to others sites and same goes for urls. We have also made a
+weight table that contains the weight of different parameters and weight factors which can be modified as per requirements.
+
+ \begin{itemize}
+     \item \textbf{Input}: html data downloaded during crawling
+    \item \textbf{Output}: KEYWORD_INFO table
+    \item \textbf{Processing}: html data are processed to get text and then tokenized to get keywords
+     \item \textbf{Files used} : 
+        \item \textbf{Python Libraries used} :   
+
+        
+        \item \textbf{Database Tables used} : KEYWORD_RANK
+        
+
+     \end{itemize}
+ 
+\end{itemize}
+
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=14cm,height=6cm]{ranking}
+\caption{Ranking Architecture}
+\end{center}
+\end{figure} 
+
+\section{Presentation}
+
+\begin{itemize}
+
+\item\textbf {Presentation}: Displaying the links with title and some code snippet based on the result obtained after ranking. This step will take help from front-end and back-end web developing. There will be a html page containing search form which will take input from the user and based on the back-end processing, it will display the result.
+\item While presenting, the keywords searched is highlighted(by replacing the keyword with its bold ($<$b$>$keyword $<$/b$>$) form in each of the result ed links and their description.
+
+ \begin{itemize}
+     \item \textbf{Input}: html data downloaded during crawling
+    \item \textbf{Output}: KEYWORD_INFO table
+    \item \textbf{Processing}: html data are processed to get text and then tokenized to get keywords
+     \item \textbf{Files used} :
+        \item \textbf{Python Libraries used used} : 
+        
+        \item \textbf{Database Tables used} : 
+        
+
+     \end{itemize}
+
+ 
+\end{itemize}
+
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=14cm,height=6cm]{presentation}
+\caption{Presentation Architecture}
+\end{center}
+\end{figure} 
+
+\chapter{ Design}
+
+
+
+\section{Search Engine Working}
+    \begin{itemize}
+      \item The search form takes the query from user and stores it in a variable. 
+\item The variable will be tokenized using nltk tokenizer and each obtained keyword will be separately searched in KEYWORD_INFO table.
+\item Based on the search, a list of url_id, site_id and corresponding weight based on the occurrence will be taken from KEYWORD_INFO table. Also, weight for these url_id and site_id will be taken from URL_INFO and SITE_INFO table.
+\item These weights for each url will be added and these urls will be ranked on the basis of total weight.
+\item Urls with some code snippet will be shown on the result page.
+
+    \end{itemize}
+
+
+\section{Different python files and their input and output:}
+
+\begin{itemize}
+   \item \textbf{weight_config.py}
+  
+    \begin{itemize}
+      \item \textbf{Input:-}values for different weight factors
+      \item \textbf{Output:-}Database table WEIGHT_CONFIG
+    \end{itemize}
+  \item \textbf{site_info.py}
+  
+    \begin{itemize}
+      \item \textbf{Input:-}list of sites.
+      \item \textbf{Output:-}Database table SITE_INFO
+    \end{itemize}
+    
+    \item \textbf{url_info.py}
+  
+    \begin{itemize}
+      \item \textbf{Input:-}Site_link from the table  SITE_INFO..
+      \item \textbf{Output:-}-Database Table URL_INFO
+    \end{itemize}
+    
+    \item \textbf{Keyword_info.py}
+  
+    \begin{itemize}
+      \item \textbf{Input:-}:url_link from the table URL_INFO.
+      \item \textbf{Output:-}Database Table KEYWORD_INFO 
+    \end{itemize}
+    
+    \item \textbf{Keyword_rank.py}
+  
+    \begin{itemize}
+      \item \textbf{Input:-}database tables (KEYWORD_INFO, URL_INFO,  SITE_INFO) .
+      \item \textbf{Output:-}Database Table KEYWORD_RANK
+    \end{itemize}
+    \item \textbf{Update.py:}
+  
+    \begin{itemize}
+      \item \textbf{Input:-}last_updated parameter from URL_INFO table. 
+
+      \item \textbf{Output:-}update the corresponding columns in different tables
+
+
+    \end{itemize}
+\end{itemize}
+
+
+\chapter{Yet to be implemented}
+     \begin{itemize}
+    \item  There are many factors while deiding ranking of URL are not implemented.
+    They are:-
+        \begin{itemize}
+         \item Broken link 
+        \end{itemize}
+         \begin{itemize}
+         \item No. of viewers of a URL 
+        \end{itemize}
+         \begin{itemize}
+         \item Site Popularity 
+              \begin{itemize}
+                 \item Based on the search query a new table can be created which will store the stat about search query and should be updated after each query.
+               \end{itemize}
+        \end{itemize}
+          \begin{itemize}
+         \item Bounce Rate
+        \end{itemize}
+     \end{itemize}
+    
+    \begin{itemize}
+         \item content quality factors 
+             \begin{itemize}
+    \item check whether alt attribute is present or not in the img tag of web page of each scrolled URL. If it is not present then give some penalty factor.
+    \end{itemize}
+    \begin{itemize}
+   \item  check  whether Title attribute is present or not in the  img tag of web page of each scrolled URL. If it is not present then give some penalty factor.
+   \end{itemize}
+   \begin{itemize}
+   \item  check  whether \textbf{rel="no follow}"is present or not in the  anchor tag of web page of each scrolled URL. If it is not present then give some penalty factor.
+   \end{itemize}
+            
+        \end{itemize}
+   
+  
+
+
+
+
+
+\end{document}
